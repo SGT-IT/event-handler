@@ -1,0 +1,265 @@
+@import 'variable';
+@import 'mixin';
+@import 'fonts';
+@import 'main';
+@import 'header';
+@import 'footer';
+
+.state {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.bg {
+    background-image: url('../images/fuji_bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.mount {
+    position: fixed;
+    width: 50%;
+    z-index: -1;
+    bottom: 0;
+    right: 0;
+
+    img {
+        width: 100%;
+    }
+}
+body {
+    width: 100%;
+    font-family: 'Athiti', sans-serif;
+    padding: 30px;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 100px;
+        height: 100px;
+    }
+}
+.label {
+    color: #000;
+    word-wrap: break-word;
+}
+.error-block {
+    flex-direction: column;
+}
+.table-item:nth-child(2n) {
+    background-color: white;
+}
+.table-item:nth-child(2n + 1) {
+    background-color: wheat;
+}
+.content-block, .error-block {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background-color: rgba(230, 230, 230, .6);
+    border-radius: 40px;
+
+    .block {
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+    }
+
+    .selector {
+        a {
+            text-decoration: none;
+            color: white;
+
+            &.active {
+                color: wheat;
+            }
+        }
+    }
+}
+.form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+    .main-label {
+        display: block;
+        background-color: aquamarine;
+        margin: 20px 0 10px 0;
+    }
+
+    .form-wrap {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        width: 100%;
+    }
+
+    i {
+        font-size: 30px;
+        padding: 0 20px;
+
+        cursor: pointer;
+    }
+    input {
+        border: 0px solid #000;
+        border-radius: 40px;
+        padding: 0 10px;
+        height: 40px;
+        font-size: 25px;
+        text-align: center;
+        width: 80%;
+    }
+    
+}
+.button-handler {
+    display: block;
+
+    .submit {
+        display: inline-block;
+        font-size: 25px;
+    }
+}
+.state-item {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+.block-input {
+    &.button {
+        display: flex;
+        justify-content: center;
+    }
+}
+.block-btn {
+    max-width: 200px;
+}
+.clear-block {
+    clear: both;
+}
+input.backend {
+    width: 100%
+}
+a.button {
+    text-decoration: none;
+    color: black;
+    background-color: wheat;
+    padding: 5px 20px;
+    border-radius: 30px;
+    display: block;
+
+    &.cancel {
+        background-color: red;
+    }
+
+    &:hover {
+        background-color: salmon;
+    }
+
+    -webkit-transition: all ease-in-out .35s;
+    -moz-transition: all ease-in-out .35s;
+    -ms-transition: all ease-in-out .35s;
+    -o-transition: all ease-in-out .35s;
+    transition: all ease-in-out .35s;
+}
+.submit {
+    margin-top: 20px;
+}
+
+.swal2-confirm, .swal2-deny, .swal2-cancel {
+    font-size: 20px!important;
+}
+
+._hide {
+    display: none !important;
+}
+
+._fs-16 {
+    font-size: 16px;
+}
+._fs-18 {
+    font-size: 18px;
+}
+._fs-20 {
+    font-size: 20px;
+}
+._fs-30 {
+    font-size: 30px;
+}
+._fs-50 {
+    font-size: 50px;
+}
+._fs-60 {
+    font-size: 60px;
+}
+._fs-70 {
+    font-size: 70px;
+}
+._fs-75 {
+    font-size: 75px;
+}
+
+._add-space {
+    &._top {
+        padding-top: 10px;
+    }
+    &._bottom {
+        padding-bottom: 10px;
+    }
+}
+
+/* Large Devices, Wide Screens */
+@media (max-width: 1200px) {}
+
+/* iPad  Landscape*/
+@media (min-width: 980px) and (max-width: 1024px) {}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width: 991px) {}
+
+/* Small Devices, Tablets */
+@media (max-width: 767px) {
+    .mount {
+        width: 100%;
+    }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 480px) {
+    .main-label {
+        font-size: 20px;
+    }
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width: 320px) {}

@@ -1,0 +1,69 @@
+@import 'variable';
+
+@mixin d-transition(){
+    -webkit-transition: .35s all ease-in-out;
+    -moz-transition: .35s all ease-in-out;
+    -ms-transition: .35s all ease-in-out;
+    -o-transition: .35s all ease-in-out;
+    transition: .35s all ease-in-out;
+}
+@mixin c-transition($parameter1, $parameter2, $parameter3){
+    -webkit-transition: $parameter1 $parameter2 $parameter3;
+    -moz-transition: $parameter1 $parameter2 $parameter3;
+    -ms-transition: $parameter1 $parameter2 $parameter3;
+    -o-transition: $parameter1 $parameter2 $parameter3;
+    transition: $parameter1 $parameter2 $parameter3;
+}
+
+@mixin d-translate(){
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+@mixin c-translate($parameter1, $parameter2){
+    -webkit-transform: translate($parameter1, $parameter2);
+    -moz-transform: translate($parameter1, $parameter2);
+    -ms-transform: translate($parameter1, $parameter2);
+    -o-transform: translate($parameter1, $parameter2);
+    transform: translate($parameter1, $parameter2);
+}
+
+@mixin d-scale(){
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+@mixin c-scale($parameter1){
+    -webkit-transform: scale($parameter1);
+    -moz-transform: scale($parameter1);
+    -ms-transform: scale($parameter1);
+    -o-transform: scale($parameter1);
+    transform: scale($parameter1);
+}
+
+@mixin gd-1($a-color, $b-color){
+    background: $a-color;
+    background: -moz-linear-gradient(top, $a-color 0%, $b-color 100%);
+    background: -webkit-linear-gradient(top, $a-color 0%,$b-color 100%);
+    background: linear-gradient(to bottom, $a-color 0%,$b-color 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$a-color', endColorstr='$b-color',GradientType=0 );
+}
+
+
+%boxcontent {
+    overflow: auto;  
+    height: 100%;
+    position: relative;
+    height: 80vh;
+    max-height: 775px;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    padding: 40px;
+    box-shadow: $boxshadow;
+    border-radius: 3px;
+}

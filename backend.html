@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>หน้าหลัก</title>
+
+    <meta name="title" content="หน้าหลัก" />
+    <meta name="description" content="หน้าหลัก" />
+    <meta name="keywords" content="หน้าหลัก, หน้าหลัก" />
+    <meta name="thumbnail" content="http://yoursite/default_thumb.png" />
+    <meta property="og:title" content="หน้าหลัก" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="หน้าหลัก" />
+    <meta property="og:image" content="http://yoursite/default_thumb.png" />
+    <meta property="og:url" content="http://yoursite/" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Athiti&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="dist/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="dist/vendors/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" type="text/css" href="dist/vendors/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="dist/vendors/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="dist/vendors/lity/lity.css">
+    <link rel="stylesheet" type="text/css" href="dist/assets/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.0.20/sweetalert2.min.css" integrity="sha512-rogivVAav89vN+wNObUwbrX9xIA8SxJBWMFu7jsHNlvo+fGevr0vACvMN+9Cog3LAQVFPlQPWEOYn8iGjBA71w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
+</head>
+<body id="sgt">
+    <div class="bg"></div>
+    <div class="content-block">
+        <div class="block">
+            <div class="_fs-50 _add-space _bottom">หน้าเช็คยอดกิจกรรม</div>
+
+            <div class="block-input _add-space _bottom">
+                <div class="col-sm-3">
+                    <span>ชื่อกิจกรรม</span>
+                </div>
+
+                <div class="col-sm-9">
+                    <input class="event backend" type="text">
+                </div>
+                <div class="clear-block"></div>
+            </div>
+
+            <div class="block-input _add-space _bottom">
+                <div class="col-sm-3">
+                    <span>คำโปรย</span>
+                </div>
+
+                <div class="col-sm-9">
+                    <input class="address backend" type="text">
+                </div>
+                <div class="clear-block"></div>
+            </div>
+
+            <div class="block-input _add-space _bottom">
+                <div class="col-sm-3">
+                    <span>Youtube ID</span>
+                </div>
+
+                <div class="col-sm-9">
+                    <input class="youtube backend" type="text">
+                </div>
+                <div class="clear-block"></div>
+            </div>
+
+            <div class="block-input _add-space _bottom">
+                <div class="col-sm-3">
+                    <span>วันที่เริ่ม (ควรเริ่มก่อน 30 นาที)</span>
+                </div>
+
+                <div class="col-sm-9">
+                    <input class="startdt backend" type="text">
+                </div>
+                <div class="clear-block"></div>
+            </div>
+
+            <div class="block-input _add-space _bottom">
+                <div class="col-sm-3">
+                    <span>วันที่สิ่นสุด</span>
+                </div>
+
+                <div class="col-sm-9">
+                    <input class="enddt backend" type="text">
+                </div>
+                <div class="clear-block"></div>
+            </div>
+
+
+            <div class="block-input button _add-space _bottom">
+                <div class="block-btn col-sm-12">
+                    <a class="button" href="javascript: insertOrEdit()">บันทึก</a>
+                </div>
+                <div class="clear-block"></div>
+            </div>
+        </div>
+    </div>
+
+	<script src="dist/vendors/jquery/jquery-3.3.1.min.js"></script>
+    <script src="dist/vendors/jquery/jquery-migrate-3.0.0.min.js"></script>
+    <script src="dist/vendors/bootstrap/js/bootstrap.js"></script>
+    <script src="dist/vendors/slick/slick.js"></script>
+	<script src="dist/vendors/lity/lity.js"></script>
+	
+    <script src="dist/assets/js/backend.js"></script>
+
+    <script src="dist/assets/js/url-param-handler.js"></script>
+    <script src="dist/assets/js/service.js"></script>
+    <script src="dist/assets/js/countdown.js"></script>
+    <script src="dist/assets/js/cache.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+
+
+    
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.min.css" integrity="sha512-cyIcYOviYhF0bHIhzXWJQ/7xnaBuIIOecYoPZBgJHQKFPo+TOBA+BY1EnTpmM8yKDU4ZdI3UGccNGCEUdfbBqw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.9/sweetalert2.all.min.js" integrity="sha512-IZ95TbsPTDl3eT5GwqTJH/14xZ2feLEGJRbII6bRKtE/HC6x3N4cHye7yyikadgAsuiddCY2+6gMntpVHL1gHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

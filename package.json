@@ -1,0 +1,29 @@
+{
+  "name": "4bears",
+  "version": "1.0.0",
+  "description": "This project was create by 4bears developers. This team contain with a professional developer and they name is SOK TGN PEI and TMR",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "4bears"
+  ],
+  "author": "4bears SOK TGN PEI TMR",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-jsmin": "^0.1.5",
+    "gulp-sass": "^3.2.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-webserver": "^0.9.1",
+    "pump": "^3.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
+    "natives": "^1.1.6"
+  }
+}
