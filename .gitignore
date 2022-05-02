@@ -2,3 +2,7 @@
 node_modules/
 
 dist/assets/css/
+
+.vscode/
+
+.DS_Store

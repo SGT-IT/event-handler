@@ -26,7 +26,7 @@ function setCountdown(mainDateTime, setItem) {
             $('.countdown').html('').hide();
         }
         
-        handleState(setItem)
+        handleState(setItem);
     }, 1000);
 }
 
@@ -42,6 +42,10 @@ function handleState(setItem) {
 
         // If the count down is finished, write some text
         if (distance < 0) {
+            if (item.cb) {
+                item.cb();
+            }
+
             $('.state').removeClass('active');
             $('.' + item.activeItem).addClass('active');
             return;

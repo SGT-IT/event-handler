@@ -1,3 +1,4 @@
+
 var vdo = '';
 var isNew = false;
 var eventKey = '';
@@ -23,6 +24,7 @@ $(function() {
     };
     const success = (result) => {
         if (result.error_code === 200) {
+            $('title').html(result?.event_name);
             $('.fill-name').html(result?.event_name);
             $('.fill-caption').html(result?.event_caption);
 
@@ -41,7 +43,8 @@ $(function() {
                 },
                 {
                     activeItem: 'state2',
-                    dt: dateConverter(result?.event_start)
+                    dt: dateConverter(result?.event_start),
+                    cb: result?.event_isCount === 'Y' ? null : skip
                 },
                 {
                     activeItem: 'state3',
@@ -55,6 +58,9 @@ $(function() {
         }
         isDisplayError(isError, errorMessage);
     };
+    const skip = () => {
+        // location.href = 'https://www.youtube.com/watch?v=' + vdo;
+    }
     const fail = () => {
         errorMessage += 'กรุณาติดต่อผู้ประสานงานเพื่อเพิ่มข้อมูลงาน <br />';
         isError = true
@@ -62,9 +68,6 @@ $(function() {
         isDisplayError(isError, errorMessage);
     };
     postRequest(endPointURL + '/check-event.php', data, success, fail);
-
-
-
 
     $('input.md').val(getCookie('sgt-md-' + eventKey) || 0);
     $('input.wd').val(getCookie('sgt-wd-' + eventKey) || 0);
@@ -98,7 +101,7 @@ function recheckDoubleForm() {
             if (result.isConfirmed) {
                 setTimeout(function() {
                     if (vdo) {
-                        location.href = 'https://www.youtube.com/watch?v=' + vdo;
+                        // location.href = 'https://www.youtube.com/watch?v=' + vdo;
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -152,85 +155,96 @@ function goto(page) {
 }
 
 function submit() {
-    Swal.fire({
-        title: 'กรุณายืนยันยอดของท่าน',
-        html: !isNew ? 
-        '<span class="_fs-20">ผู้ใหญ่ชาย<br /> สมาชิก (' + $('input.md').val() + ') เพื่อนสมาชิก (' + $('input.s-md').val() + 
-        ') <br/>ผู้ใหญ่หญิง<br /> สมาชิก (' + $('input.wd').val() + ') เพื่อนสมาชิก (' + $('input.s-wd').val() + 
-        ') <br/>ยุวชนชาย<br /> สมาชิก (' + $('input.ymd').val() + ') เพื่อนสมาชิก (' + $('input.s-ymd').val() + 
-        ') <br/>ยุวชนหญิง<br /> สมาชิก (' + $('input.ywd').val() + ') เพื่อนสมาชิก (' + $('input.s-ywd').val() + ') </span>' 
-        : '<span class="_fs-20">ผู้ใหญ่ชาย<br />  ' + $('input.md').val() + 
-        ' <br/>ผู้ใหญ่หญิง<br /> ' + $('input.wd').val() + 
-        ' <br/>ยุวชนชาย<br /> ' + $('input.ymd').val() +
-        ' <br/>ยุวชนหญิง<br /> ' + $('input.ywd').val() + ' </span>' ,
-        confirmButtonText: 'ส่ง',
-        cancelButtonText: 'แก้ไข',
-        showCancelButton: true,
-        showCloseButton: true
-    }).then((result) => {
-        if (result.isConfirmed) {
-            var oldMdVal = getCookie('sgt-md-' + eventKey) || 0;
-            var oldWdVal = getCookie('sgt-wd-' + eventKey) || 0;
-            var oldYmdVal = getCookie('sgt-ymd-' + eventKey) || 0;
-            var oldYwdVal = getCookie('sgt-ywd-' + eventKey) || 0;
+    let summaryPerson = 0;
+    if (!isNew) {
+        summaryPerson = $('input.md').val() + $('input.wd').val() + $('input.ymd').val() + $('input.ywd').val() + $('input.s-md').val() + $('input.s-wd').val() + $('input.s-ymd').val() + $('input.s-ywd').val();
+    } else {
+        summaryPerson = $('input.md').val() + $('input.wd').val() + $('input.ymd').val() + $('input.ywd').val();
+    }
+    const validateItem = summaryPerson > 0 ? true : false;
 
-            var oldSMdVal = getCookie('sgt-s-md-' + eventKey) || 0;
-            var oldSWdVal = getCookie('sgt-s-wd-' + eventKey) || 0;
-            var oldSYmdVal = getCookie('sgt-s-ymd-' + eventKey) || 0;
-            var oldSYwdVal = getCookie('sgt-s-ywd-' + eventKey) || 0;
+    if (validateItem) {
+        Swal.fire({
+            title: 'กรุณายืนยันยอดของท่าน',
+            html: !isNew ? 
+            '<span class="_fs-20">ผู้ใหญ่ชาย<br /> สมาชิก (' + $('input.md').val() + ') เพื่อนสมาชิก (' + $('input.s-md').val() + 
+            ') <br/>ผู้ใหญ่หญิง<br /> สมาชิก (' + $('input.wd').val() + ') เพื่อนสมาชิก (' + $('input.s-wd').val() + 
+            ') <br/>ยุวชนชาย<br /> สมาชิก (' + $('input.ymd').val() + ') เพื่อนสมาชิก (' + $('input.s-ymd').val() + 
+            ') <br/>ยุวชนหญิง<br /> สมาชิก (' + $('input.ywd').val() + ') เพื่อนสมาชิก (' + $('input.s-ywd').val() + ') </span>' 
+            : '<span class="_fs-20">ผู้ใหญ่ชาย<br />  ' + $('input.md').val() + 
+            ' <br/>ผู้ใหญ่หญิง<br /> ' + $('input.wd').val() + 
+            ' <br/>ยุวชนชาย<br /> ' + $('input.ymd').val() +
+            ' <br/>ยุวชนหญิง<br /> ' + $('input.ywd').val() + ' </span>' ,
+            confirmButtonText: 'ส่ง',
+            cancelButtonText: 'แก้ไข',
+            showCancelButton: true,
+            showCloseButton: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const data = {
+                    event: getURLParam('event'),
+                    address: getURLParam('address'),
+                    md: $('input.md').val(),
+                    wd: $('input.wd').val(),
+                    ymd: $('input.ymd').val(),
+                    ywd: $('input.ywd').val(),
+    
+                    s_md: $('input.s-md').val(),
+                    s_wd: $('input.s-wd').val(),
+                    s_ymd: $('input.s-ymd').val(),
+                    s_ywd: $('input.s-ywd').val(),
 
-            const data = {
-                event: getURLParam('event'),
-                address: getURLParam('address'),
-                md: $('input.md').val() - oldMdVal,
-                wd: $('input.wd').val() - oldWdVal,
-                ymd: $('input.ymd').val() - oldYmdVal,
-                ywd: $('input.ywd').val() - oldYwdVal,
+                    ref_id: getCookie('ref-id') || '-'
+                };
+                const success = (result) => {
+                    if (result.error_code === 200) {
+                        setCookie('sgt-md-' + eventKey, $('input.md').val(), 6);
+                        setCookie('sgt-wd-' + eventKey, $('input.wd').val(), 6);
+                        setCookie('sgt-ymd-' + eventKey, $('input.ymd').val(), 6);
+                        setCookie('sgt-ywd-' + eventKey, $('input.ywd').val(), 6);
+    
+                        setCookie('sgt-s-md-' + eventKey, $('input.s-md').val(), 6);
+                        setCookie('sgt-s-wd-' + eventKey, $('input.s-wd').val(), 6);
+                        setCookie('sgt-s-ymd-' + eventKey, $('input.s-ymd').val(), 6);
+                        setCookie('sgt-s-ywd-' + eventKey, $('input.s-ywd').val(), 6);
 
-                s_md: $('input.s-md').val() - oldSMdVal,
-                s_wd: $('input.s-wd').val() - oldSWdVal,
-                s_ymd: $('input.s-ymd').val() - oldSYmdVal,
-                s_ywd: $('input.s-ywd').val() - oldSYwdVal,
-            };
-            const success = (result) => {
-                if (result.error_code === 200) {
-                    setCookie('sgt-md-' + eventKey, $('input.md').val(), 3);
-                    setCookie('sgt-wd-' + eventKey, $('input.wd').val(), 3);
-                    setCookie('sgt-ymd-' + eventKey, $('input.ymd').val(), 3);
-                    setCookie('sgt-ywd-' + eventKey, $('input.ywd').val(), 3);
-
-                    setCookie('sgt-s-md-' + eventKey, $('input.s-md').val(), 3);
-                    setCookie('sgt-s-wd-' + eventKey, $('input.s-wd').val(), 3);
-                    setCookie('sgt-s-ymd-' + eventKey, $('input.s-ymd').val(), 3);
-                    setCookie('sgt-s-ywd-' + eventKey, $('input.s-ywd').val(), 3);
-
-                    setTimeout(function() {
-                        if (vdo) {
-                            location.href = 'https://www.youtube.com/watch?v=' + vdo;
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'เกิดข้อผิดพลาดในการส่งข้อมูล',
-                                text: 'กรุณาเช็ค Internet ของท่านแล้วลองใหม่อีกครั้ง'
-                            });
-                        }
-                    }, 1000);
-                } else {
+                        setCookie('ref-id', result.results, 6);
+    
+                        setTimeout(function() {
+                            if (vdo) {
+                                // location.href = 'https://www.youtube.com/watch?v=' + vdo;
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'เกิดข้อผิดพลาดในการส่งข้อมูล',
+                                    text: 'กรุณาเช็ค Internet ของท่านแล้วลองใหม่อีกครั้ง'
+                                });
+                            }
+                        }, 1000);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาดในการส่งข้อมูล',
+                            text: 'กรุณาเช็ค Internet ของท่านแล้วลองใหม่อีกครั้ง'
+                        });
+                    }
+                };
+                const fail = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'เกิดข้อผิดพลาดในการส่งข้อมูล',
                         text: 'กรุณาเช็ค Internet ของท่านแล้วลองใหม่อีกครั้ง'
                     });
-                }
-            };
-            const fail = () => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'เกิดข้อผิดพลาดในการส่งข้อมูล',
-                    text: 'กรุณาเช็ค Internet ของท่านแล้วลองใหม่อีกครั้ง'
-                });
-            };
-            postRequest(endPointURL + '/add.php', data, success, fail);
-        }
-    })
+                };
+                postRequest(endPointURL + '/add.php', data, success, fail);
+            }
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'กรุณาใส่ผู้เข้าร่วมอย่างน้อย 1 ท่าน',
+            confirmButtonText: 'แก้ไข',
+            showCloseButton: true
+        });
+    }
 }

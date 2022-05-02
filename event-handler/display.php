@@ -24,15 +24,15 @@
 
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            $md = $row["oth_md"];
-            $wd = $row["oth_wd"];
-            $ymd = $row["oth_ymd"];
-            $ywd = $row["oth_ywd"];
+            $md = $md + $row["oth_md"];
+            $wd = $wd + $row["oth_wd"];
+            $ymd = $ymd + $row["oth_ymd"];
+            $ywd = $ywd + $row["oth_ywd"];
 
-            $s_md = $row["oth_s_md"];
-            $s_wd = $row["oth_s_wd"];
-            $s_ymd = $row["oth_s_ymd"];
-            $s_ywd = $row["oth_s_ywd"];
+            $s_md = $s_md + $row["oth_s_md"];
+            $s_wd = $s_wd + $row["oth_s_wd"];
+            $s_ymd = $s_ymd + $row["oth_s_ymd"];
+            $s_ywd = $s_ywd + $row["oth_s_ywd"];
         }
 
         $response["error_code"] = 200;
