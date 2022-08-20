@@ -19,6 +19,7 @@
             $event_name = $row["oth_event_name"];
             $event_caption = $row["oth_event_caption"];
             $event_youtube = $row["oth_event_youtube"];
+            $event_background = $row["oth_event_background"];
             $event_isCount = $row["oth_is_count"];
             $event_isCountNew = $row["oth_is_count_new"];
             $event_init = $row["oth_event_init"];
@@ -31,6 +32,7 @@
         $response["event_name"] = $event_name;
         $response["event_caption"] = $event_caption;
         $response["event_youtube"] = $event_youtube;
+        $response["event_background"] = $event_background;
         $response["event_isCount"] = $event_isCount;
         $response["event_isNew"] = $event_isCountNew;
         $response["event_init"] = $event_init;

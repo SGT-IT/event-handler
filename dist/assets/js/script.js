@@ -1,6 +1,6 @@
 
 var vdo = '';
-var isNew = false;
+var isNew = 'F';
 var eventKey = '';
 
 $(function() {
@@ -28,9 +28,23 @@ $(function() {
             $('.fill-name').html(result?.event_name);
             $('.fill-caption').html(result?.event_caption);
 
-            if (result?.event_isNew !== 'Y') {
+            if (result?.event_background) {
+                $('.mount').hide();
+                $('.bg').attr('style', 'background-image: url("' + result?.event_background + '")')
+            }
+
+            if (result?.event_isNew === 'S') {
+                $('.is-special').hide();
                 $('.is-count-new').hide();
-                isNew = true;
+                isNew = 'S';
+            }
+            else if (result?.event_isNew === 'N') {
+                $('.is-other').hide();
+                $('.is-count-new').hide();
+                isNew = 'T';
+            }
+            else if (result?.event_isNew === 'Y') {
+                $('.is-other').hide();
             } 
 
             vdo = result?.event_youtube;
@@ -59,7 +73,7 @@ $(function() {
         isDisplayError(isError, errorMessage);
     };
     const skip = () => {
-        // location.href = 'https://www.youtube.com/watch?v=' + vdo;
+        location.href = 'https://www.youtube.com/watch?v=' + vdo;
     }
     const fail = () => {
         errorMessage += 'กรุณาติดต่อผู้ประสานงานเพื่อเพิ่มข้อมูลงาน <br />';
@@ -82,17 +96,22 @@ $(function() {
 
 function recheckDoubleForm() {
     if (getCookie('sgt-md-' + eventKey)) {
-        Swal.fire({
-            title: 'ท่านได้ทำการลงข้อมูลเรียบร้อยแล้ว หากไม่มีการแก้ไขข้อมูลสามารถกด ชม VDO',
-            html: !isNew ? 
-            '<span class="_fs-20">ผู้ใหญ่ชาย<br /> สมาชิก (' + $('input.md').val() + ') เพื่อนสมาชิก (' + $('input.s-md').val() + 
-            ') <br/>ผู้ใหญ่หญิง<br /> สมาชิก (' + $('input.wd').val() + ') เพื่อนสมาชิก (' + $('input.s-wd').val() + 
-            ') <br/>ยุวชนชายและมิไรบุชาย<br /> สมาชิก (' + $('input.ymd').val() + ') เพื่อนสมาชิก (' + $('input.s-ymd').val() + 
-            ') <br/>ยุวชนหญิงและมิไรบุหญิง<br /> สมาชิก (' + $('input.ywd').val() + ') เพื่อนสมาชิก (' + $('input.s-ywd').val() + ') </span>' 
-            : '<span class="_fs-20">ผู้ใหญ่ชาย<br />  ' + $('input.md').val() + 
+        let newsText = '<span class="_fs-20">ผู้ใหญ่ชาย<br /> สมาชิก (' + $('input.md').val() + ') เพื่อนสมาชิก (' + $('input.s-md').val() + 
+        ') <br/>ผู้ใหญ่หญิง<br /> สมาชิก (' + $('input.wd').val() + ') เพื่อนสมาชิก (' + $('input.s-wd').val() + 
+        ') <br/>ยุวชนชายและมิไรบุชาย<br /> สมาชิก (' + $('input.ymd').val() + ') เพื่อนสมาชิก (' + $('input.s-ymd').val() + 
+        ') <br/>ยุวชนหญิงและมิไรบุหญิง<br /> สมาชิก (' + $('input.ywd').val() + ') เพื่อนสมาชิก (' + $('input.s-ywd').val() + ') </span>';
+
+        if (isNew === 'F') {
+            newsText = '<span class="_fs-20">ผู้ใหญ่ชาย<br />  ' + $('input.md').val() + 
             ' <br/>ผู้ใหญ่หญิง<br /> ' + $('input.wd').val() + 
             ' <br/>ยุวชนชายและมิไรบุชาย<br /> ' + $('input.ymd').val() +
-            ' <br/>ยุวชนหญิงและมิไรบุหญิง<br /> ' + $('input.ywd').val() + ' </span>' ,
+            ' <br/>ยุวชนหญิงและมิไรบุหญิง<br /> ' + $('input.ywd').val() + ' </span>';
+        } else if (isNew === 'S') {
+            newsText = '<span class="_fs-20">จำนวนผู้เข้าร่วม<br />  ' + $('input.md').val() + ' </span>';
+        }
+        Swal.fire({
+            title: 'ท่านได้ทำการลงข้อมูลเรียบร้อยแล้ว หากไม่มีการแก้ไขข้อมูลสามารถกด ชม VDO',
+            html: newsText,
             confirmButtonText: 'ชม VDO',
             cancelButtonText: 'แก้ไข',
             showCancelButton: true,
@@ -101,7 +120,7 @@ function recheckDoubleForm() {
             if (result.isConfirmed) {
                 setTimeout(function() {
                     if (vdo) {
-                        // location.href = 'https://www.youtube.com/watch?v=' + vdo;
+                        location.href = 'https://www.youtube.com/watch?v=' + vdo;
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -156,6 +175,21 @@ function goto(page) {
 
 function submit() {
     let summaryPerson = 0;
+    let newsText = '<span class="_fs-20">ผู้ใหญ่ชาย<br /> สมาชิก (' + $('input.md').val() + ') เพื่อนสมาชิก (' + $('input.s-md').val() + 
+    ') <br/>ผู้ใหญ่หญิง<br /> สมาชิก (' + $('input.wd').val() + ') เพื่อนสมาชิก (' + $('input.s-wd').val() + 
+    ') <br/>ยุวชนชาย<br /> สมาชิก (' + $('input.ymd').val() + ') เพื่อนสมาชิก (' + $('input.s-ymd').val() + 
+    ') <br/>ยุวชนหญิง<br /> สมาชิก (' + $('input.ywd').val() + ') เพื่อนสมาชิก (' + $('input.s-ywd').val() + ') </span>';
+
+    if (isNew === 'F') {
+        newsText = '<span class="_fs-20">ผู้ใหญ่ชาย<br />  ' + $('input.md').val() + 
+        ' <br/>ผู้ใหญ่หญิง<br /> ' + $('input.wd').val() + 
+        ' <br/>ยุวชนชาย<br /> ' + $('input.ymd').val() +
+        ' <br/>ยุวชนหญิง<br /> ' + $('input.ywd').val() + ' </span>';
+    } else if (isNew === 'S') {
+        newsText = '<span class="_fs-20">จำนวนผู้เข้าร่วม<br />  ' + $('input.md').val() + ' </span>';
+    }
+
+
     if (!isNew) {
         summaryPerson = $('input.md').val() + $('input.wd').val() + $('input.ymd').val() + $('input.ywd').val() + $('input.s-md').val() + $('input.s-wd').val() + $('input.s-ymd').val() + $('input.s-ywd').val();
     } else {
@@ -166,15 +200,7 @@ function submit() {
     if (validateItem) {
         Swal.fire({
             title: 'กรุณายืนยันยอดของท่าน',
-            html: !isNew ? 
-            '<span class="_fs-20">ผู้ใหญ่ชาย<br /> สมาชิก (' + $('input.md').val() + ') เพื่อนสมาชิก (' + $('input.s-md').val() + 
-            ') <br/>ผู้ใหญ่หญิง<br /> สมาชิก (' + $('input.wd').val() + ') เพื่อนสมาชิก (' + $('input.s-wd').val() + 
-            ') <br/>ยุวชนชาย<br /> สมาชิก (' + $('input.ymd').val() + ') เพื่อนสมาชิก (' + $('input.s-ymd').val() + 
-            ') <br/>ยุวชนหญิง<br /> สมาชิก (' + $('input.ywd').val() + ') เพื่อนสมาชิก (' + $('input.s-ywd').val() + ') </span>' 
-            : '<span class="_fs-20">ผู้ใหญ่ชาย<br />  ' + $('input.md').val() + 
-            ' <br/>ผู้ใหญ่หญิง<br /> ' + $('input.wd').val() + 
-            ' <br/>ยุวชนชาย<br /> ' + $('input.ymd').val() +
-            ' <br/>ยุวชนหญิง<br /> ' + $('input.ywd').val() + ' </span>' ,
+            html: newsText,
             confirmButtonText: 'ส่ง',
             cancelButtonText: 'แก้ไข',
             showCancelButton: true,
@@ -212,7 +238,7 @@ function submit() {
     
                         setTimeout(function() {
                             if (vdo) {
-                                // location.href = 'https://www.youtube.com/watch?v=' + vdo;
+                                location.href = 'https://www.youtube.com/watch?v=' + vdo;
                             } else {
                                 Swal.fire({
                                     icon: 'error',
