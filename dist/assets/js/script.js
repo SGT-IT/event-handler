@@ -25,6 +25,12 @@ $(function() {
     const success = (result) => {
         if (result.error_code === 200) {
             $('title').html(result?.event_name);
+            $('meta[name="title"]').attr('content', result?.event_name);
+            $('meta[name="description"]').attr('content', result?.event_name);
+            $('meta[name="keywords"]').attr('content', result?.event_name);
+            $('meta[property="og:title"]').attr('content', result?.event_name);
+            $('meta[property="og:description"]').attr('content', result?.event_name);
+            $('title').html(result?.event_name);
             $('.fill-name').html(result?.event_name);
             $('.fill-caption').html(result?.event_caption);
 
